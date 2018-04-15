@@ -1,0 +1,34 @@
+{
+    "name": "yadahan/innstant-php",
+    "description": "Innstant PHP Library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yaakov Dahan",
+            "email": "yakidehan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "servo/fluidxml": "^1.21",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yadahan\\Innstant\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}

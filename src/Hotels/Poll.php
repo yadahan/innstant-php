@@ -59,45 +59,47 @@ class Poll extends Innstant
 
         $count = $data['results']['@attributes']['count'];
 
-        $data['results']['result'] = $count == '1' ? [$data['results']['result']] : $data['results']['result'];
-
         $results = [];
 
-        if (isset($data['results']['result'])) {
-            foreach ($data['results']['result'] as $key => $result) {
-                if (isset($result['non-billable-price'])) { // availability coming from direct providers
-                    $price = $result['non-billable-price']['@attributes']['minCommissionablePrice'];
-                    $currency = $result['non-billable-price']['@attributes']['currency'];
-                    $min = $result['non-billable-price']['min-rooms']['min-room']['@attributes']['roomCount'];
-                } else { // availablity coming from innstant.travel
-                    $price = $result['price']['@attributes']['minCommissionablePrice'];
-                    $currency = $result['price']['@attributes']['currency'];
-                }
+        if ($count) {
+            $data['results']['result'] = $count == '1' ? [$data['results']['result']] : $data['results']['result'];
 
-                if (isset($min) && $min > 1) {
-                    $price = $price / $min;
-                }
-
-                if (isset($result['special-deals'])) {
-                    if (is_array($result['special-deals']['special-deal'])) {
-                        $special = $result['special-deals']['special-deal'];
-                    } else {
-                        $special = [$result['special-deals']['special-deal']];
+            if (isset($data['results']['result'])) {
+                foreach ($data['results']['result'] as $key => $result) {
+                    if (isset($result['non-billable-price'])) { // availability coming from direct providers
+                        $price = $result['non-billable-price']['@attributes']['minCommissionablePrice'];
+                        $currency = $result['non-billable-price']['@attributes']['currency'];
+                        $min = $result['non-billable-price']['min-rooms']['min-room']['@attributes']['roomCount'];
+                    } else { // availablity coming from innstant.travel
+                        $price = $result['price']['@attributes']['minCommissionablePrice'];
+                        $currency = $result['price']['@attributes']['currency'];
                     }
-                } else {
-                    $special = null;
-                }
 
-                $results[] = [
-                    'id'             => $result['@attributes']['id'] ?? null,
-                    'providers'      => explode(',', $result['@attributes']['providers']) ?? null,
-                    'minProvider'    => $result['@attributes']['minProvider'] ?? null,
-                    'hasPackageRate' => $result['@attributes']['hasPackageRate'] ?? null,
-                    'boards'         => explode(',', $result['@attributes']['availableBoards']),
-                    'price'          => $price,
-                    'currency'       => $currency,
-                    'special'        => $special,
-                ];
+                    if (isset($min) && $min > 1) {
+                        $price = $price / $min;
+                    }
+
+                    if (isset($result['special-deals'])) {
+                        if (is_array($result['special-deals']['special-deal'])) {
+                            $special = $result['special-deals']['special-deal'];
+                        } else {
+                            $special = [$result['special-deals']['special-deal']];
+                        }
+                    } else {
+                        $special = null;
+                    }
+
+                    $results[] = [
+                        'id'             => $result['@attributes']['id'] ?? null,
+                        'providers'      => explode(',', $result['@attributes']['providers']) ?? null,
+                        'minProvider'    => $result['@attributes']['minProvider'] ?? null,
+                        'hasPackageRate' => $result['@attributes']['hasPackageRate'] ?? null,
+                        'boards'         => explode(',', $result['@attributes']['availableBoards']),
+                        'price'          => $price,
+                        'currency'       => $currency,
+                        'special'        => $special,
+                    ];
+                }
             }
         }
 

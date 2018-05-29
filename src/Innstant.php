@@ -2,8 +2,8 @@
 
 namespace Yadahan\Innstant;
 
-use FluidXml\FluidXml;
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestException;
 
 /**
  * Class Innstant.
@@ -11,39 +11,53 @@ use GuzzleHttp\Client;
 class Innstant
 {
     /**
-     * The base URL for the Innstant API.
+     * The base URL for the mishor API.
      *
      * @var string
      */
-    public static $apiBase = 'http://mishor4.innstant-servers.com';
+    public static $apiBase = 'https://mishor5-dev.innstant-servers.com';
 
     /**
-     * The version of the Innstant API to use for requests.
+     * The aether application key.
      *
      * @var string
      */
-    public static $apiVersion = '4.0';
+    public static $applicationKey;
 
     /**
-     * The Innstant authentication username.
+     * The aether access token.
      *
      * @var string
      */
-    public static $username;
+    public static $accessToken;
 
     /**
-     * The Innstant authentication password.
+     * The aether account.
+     *
+     * @var string
+     */
+    public static $account;
+
+    /**
+     * The aether agent.
+     *
+     * @var string
+     */
+    public static $agent;
+
+    /**
+     * The aether password.
      *
      * @var string
      */
     public static $password;
 
     /**
-     * The Innstant authentication agent.
+     * The aether customization.
      *
      * @var string
      */
-    public static $agent;
+    public static $customization;
 
     /**
      * The client ip.
@@ -60,23 +74,23 @@ class Innstant
     public static $clientUserAgent = null;
 
     /**
-     * Sets the username to be used for requests.
+     * Sets the application-key to be used for requests.
      *
-     * @param string $username
+     * @param string $key
      */
-    public static function setUserName($username)
+    public static function setApplicationKey($key)
     {
-        self::$username = $username;
+        self::$applicationKey = $key;
     }
 
     /**
-     * Sets the API password to be used for requests.
+     * Sets the access-token to be used for requests.
      *
-     * @param string $password
+     * @param string $token
      */
-    public static function setPassword($password)
+    public static function setAccessToken($token)
     {
-        self::$password = $password;
+        self::$accessToken = $token;
     }
 
     /**
@@ -109,33 +123,24 @@ class Innstant
         self::$clientUserAgent = $clientUserAgent;
     }
 
-    public function request($body, $endpoint = null)
+    public function request($body, $method = 'POST')
     {
-        $http = new Client();
+        $client = new Client();
 
-        $response = $http->request('POST', $endpoint ?: self::$apiBase, ['body' => $body]);
-
-        return $response->getBody();
-    }
-
-    public function errorToApi($response)
-    {
-        $error = [
-            'status' => 'error',
-            'error'  => [
-                'code'    => $response['error']['@attributes']['code'] ?? null,
-                'content' => $response['error']['@content'] ?? null,
-            ],
-            'success' => $response['@attributes']['success'] ?? null,
-            'time'    => $response['@attributes']['time'] ?? null,
-            'session' => $response['@attributes']['session'] ?? null,
-        ];
-
-        if (isset($response['booking-options'])) {
-            $error['booking-options'] = $response['booking-options'];
+        try {
+            $response = $client->request($method, self::$apiBase.$this->endpoint, [
+                'headers' => [
+                    'aether-application-key' => self::$applicationKey,
+                    'aether-access-token' => self::$accessToken,
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => $body,
+            ]);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
         }
 
-        return $error;
+        return json_decode($response->getBody(), 1);
     }
 
     /**
@@ -150,80 +155,5 @@ class Innstant
         $json = json_encode($this->toArray(), $options);
 
         return $json;
-    }
-
-    public function toXml()
-    {
-        $xml = new FluidXml('request');
-
-        $xml->attr(['version' => self::$apiVersion])->add($this->toArray());
-
-        return $xml;
-    }
-
-    public function xmlToArray($xml)
-    {
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $root = $doc->documentElement;
-        $output = $this->nodeToArray($root);
-        $output['@root'] = $root->tagName;
-
-        return $output;
-    }
-
-    public function nodeToArray($node)
-    {
-        $output = [];
-
-        switch ($node->nodeType) {
-            case XML_CDATA_SECTION_NODE:
-            case XML_TEXT_NODE:
-                $output = trim($node->textContent);
-                break;
-
-            case XML_ELEMENT_NODE:
-                for ($i = 0, $m = $node->childNodes->length; $i < $m; $i++) {
-                    $child = $node->childNodes->item($i);
-                    $v = $this->nodeToArray($child);
-
-                    if (isset($child->tagName)) {
-                        $t = $child->tagName;
-
-                        if (! isset($output[$t])) {
-                            $output[$t] = [];
-                        }
-
-                        $output[$t][] = $v;
-                    } elseif ($v || $v === '0') {
-                        $output = (string) $v;
-                    }
-                }
-
-                if ($node->attributes->length && ! is_array($output)) {
-                    $output = ['@content'=>$output];
-                }
-
-                if (is_array($output)) {
-                    if ($node->attributes->length) {
-                        $a = [];
-
-                        foreach ($node->attributes as $attrName => $attrNode) {
-                            $a[$attrName] = (string) $attrNode->value;
-                        }
-
-                        $output['@attributes'] = $a;
-                    }
-
-                    foreach ($output as $t => $v) {
-                        if (is_array($v) && count($v) == 1 && $t != '@attributes') {
-                            $output[$t] = $v[0];
-                        }
-                    }
-                }
-                break;
-        }
-
-        return $output;
     }
 }

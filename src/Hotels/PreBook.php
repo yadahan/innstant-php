@@ -84,7 +84,7 @@ class PreBook extends Search
                 'filters'         => $this->filters,
                 'pax'             => $this->pax,
                 'service'         => $this->service,
-            ]
+            ],
         ];
 
         return $this;
@@ -100,7 +100,7 @@ class PreBook extends Search
         $this->setService();
 
         return [
-            'services' => $this->services
+            'services' => $this->services,
         ];
     }
 }

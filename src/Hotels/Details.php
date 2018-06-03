@@ -11,8 +11,10 @@ class Details extends Search
      */
     protected $endpoint;
 
-    public function __construct($hotel)
+    public function __construct($hotel, $apiBase = 'https://mishor5-dev.innstant-servers.com')
     {
+        parent::__construct($apiBase);
+
         $this->endpoint = '/hotels/details/'.$hotel;
     }
 }

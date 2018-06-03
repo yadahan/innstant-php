@@ -70,6 +70,18 @@ class Search extends Innstant
     protected $timeout = 12;
 
     /**
+     * The service.
+     *
+     * @var string
+     */
+    protected $service = 'hotels';
+
+    public function __construct($apiBase = 'https://mishor5-dev.innstant-servers.com')
+    {
+        parent::__construct($apiBase);
+    }
+
+    /**
      * Set the currencies.
      *
      * @param array $currencies

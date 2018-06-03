@@ -15,7 +15,7 @@ class Innstant
      *
      * @var string
      */
-    public static $apiBase = 'https://mishor5-dev.innstant-servers.com';
+    public static $apiBase;
 
     /**
      * The aether application key.
@@ -72,6 +72,11 @@ class Innstant
      * @var string|null
      */
     public static $clientUserAgent = null;
+
+    public function __construct($apiBase)
+    {
+        self::$apiBase = $apiBase;
+    }
 
     /**
      * Sets the application-key to be used for requests.

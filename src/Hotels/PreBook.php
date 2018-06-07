@@ -18,13 +18,6 @@ class PreBook extends Search
      */
     protected $searchCodes = [];
 
-    /**
-     * The array of services.
-     *
-     * @var array
-     */
-    protected $services = [];
-
     public function __construct($apiBase = 'https://aether3-dev.innstant-servers.com')
     {
         parent::__construct($apiBase);
@@ -63,44 +56,32 @@ class PreBook extends Search
     }
 
     /**
-     * Set the service.
-     *
-     * @return $this
-     */
-    public function setService()
-    {
-        $this->services[] = [
-            'searchCodes'   => $this->searchCodes,
-            'searchRequest' => [
-                'client' => [
-                    'ip'        => self::$clientIp ?? null,
-                    'userAgent' => self::$clientUserAgent ?? null,
-                ],
-                'currencies'      => $this->currencies,
-                'customerCountry' => $this->customerCountry,
-                'customFields'    => $this->customFields,
-                'dates'           => $this->dates,
-                'destinations'    => $this->destinations,
-                'filters'         => $this->filters,
-                'pax'             => $this->pax,
-                'service'         => $this->service,
-            ],
-        ];
-
-        return $this;
-    }
-
-    /**
      * Convert the instance to an array.
      *
      * @return array
      */
     public function toArray()
     {
-        $this->setService();
-
         return [
-            'services' => $this->services,
+            'services' => [
+                [
+                    'searchCodes'   => $this->searchCodes,
+                    'searchRequest' => [
+                        'client' => [
+                            'ip'        => self::$clientIp ?? null,
+                            'userAgent' => self::$clientUserAgent ?? null,
+                        ],
+                        'currencies'      => $this->currencies,
+                        'customerCountry' => $this->customerCountry,
+                        'customFields'    => $this->customFields,
+                        'dates'           => $this->dates,
+                        'destinations'    => $this->destinations,
+                        'filters'         => $this->filters,
+                        'pax'             => $this->pax,
+                        'service'         => $this->service,
+                    ],
+                ],
+            ],
         ];
     }
 }

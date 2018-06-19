@@ -11,7 +11,7 @@ class Cancellation extends Search
      */
     protected $endpoint;
 
-    public function __construct($room, $apiBase = 'https://mishor5-dev.innstant-servers.com')
+    public function __construct($room, $apiBase = 'https://search.mishor5.innstant-servers.com')
     {
         parent::__construct($apiBase);
 

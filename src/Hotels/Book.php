@@ -46,7 +46,7 @@ class Book extends Search
      */
     protected $bookingRequest = [];
 
-    public function __construct($apiBase = 'https://aether3-dev.innstant-servers.com')
+    public function __construct($apiBase = 'https://book.mishor5.innstant-servers.com')
     {
         parent::__construct($apiBase);
     }
@@ -96,14 +96,7 @@ class Book extends Search
     {
         $this->customer = [
             'birthDate' => $birthDate,
-            'contact'   => [
-                'address' => $contact['address'] ?? '',
-                'country' => $contact['country'] ?? 'IL',
-                'email'   => $contact['email'] ?? '',
-                'phone'   => $contact['phone'] ?? '',
-                'state'   => $contact['state'] ?? '',
-                'zip'     => $contact['zip'] ?? '',
-            ],
+            'contact'   => $contact,
             'name'      => [
                 'first' => $firstName,
                 'last'  => $lastName,

@@ -76,7 +76,7 @@ class Search extends Innstant
      */
     protected $service = 'hotels';
 
-    public function __construct($apiBase = 'https://mishor5-dev.innstant-servers.com')
+    public function __construct($apiBase = 'https://search.mishor5.innstant-servers.com')
     {
         parent::__construct($apiBase);
     }

@@ -18,7 +18,7 @@ class PreBook extends Search
      */
     protected $searchCodes = [];
 
-    public function __construct($apiBase = 'https://aether3-dev.innstant-servers.com')
+    public function __construct($apiBase = 'https://book.mishor5.innstant-servers.com')
     {
         parent::__construct($apiBase);
     }

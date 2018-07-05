@@ -3,7 +3,7 @@
 namespace Yadahan\Innstant;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\RequestException;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class Innstant.

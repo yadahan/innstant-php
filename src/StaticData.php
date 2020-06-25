@@ -30,6 +30,11 @@ class StaticData
         self::$endpoint = $endpoint;
     }
 
+    public function get()
+    {
+        return $this->request();
+    }
+
     public function request($method = 'GET')
     {
         $client = new Client();

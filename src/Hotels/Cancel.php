@@ -2,7 +2,9 @@
 
 namespace Yadahan\Innstant\Hotels;
 
-class Cancel extends Search
+use Yadahan\Innstant\Innstant;
+
+class Cancel extends Innstant
 {
     /**
      * The endpoint for cancel booking request.

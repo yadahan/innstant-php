@@ -128,6 +128,11 @@ class Innstant
         self::$clientUserAgent = $clientUserAgent;
     }
 
+    public function get()
+    {
+        return $this->request($this->toArray());
+    }
+
     public function request($body, $method = 'POST')
     {
         $client = new Client();

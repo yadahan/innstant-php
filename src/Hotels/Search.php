@@ -196,6 +196,20 @@ class Search extends Innstant
     }
 
     /**
+     * Set the timeout.
+     *
+     * @param int   $timeout
+     *
+     * @return $this
+     */
+    public function setTimeout(int $timeout)
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
      * Convert the instance to an array.
      *
      * @return array
@@ -215,6 +229,7 @@ class Search extends Innstant
             'filters'         => $this->filters,
             'pax'             => $this->pax,
             'timeout'         => $this->timeout,
+            'service'         => $this->service,
         ];
     }
 }

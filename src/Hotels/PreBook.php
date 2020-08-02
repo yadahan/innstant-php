@@ -27,14 +27,14 @@ class PreBook extends Search
      * Set the search codes.
      *
      * @param string $code
-     * @param int    $quantity
+     * @param array $pax
      *
      * @return $this
      */
     public function setCode(string $code, array $pax)
     {
         $this->searchCodes[] = [
-            'code'     => $code,
+            'code' => $code,
             'pax' => $pax,
         ];
 
@@ -65,20 +65,20 @@ class PreBook extends Search
         return [
             'services' => [
                 [
-                    'searchCodes'   => $this->searchCodes,
+                    'searchCodes' => $this->searchCodes,
                     'searchRequest' => [
                         'client' => [
-                            'ip'        => self::$clientIp ?? null,
+                            'ip' => self::$clientIp ?? null,
                             'userAgent' => self::$clientUserAgent ?? null,
                         ],
-                        'currencies'      => $this->currencies,
+                        'currencies' => $this->currencies,
                         'customerCountry' => $this->customerCountry,
-                        'customFields'    => $this->customFields,
-                        'dates'           => $this->dates,
-                        'destinations'    => $this->destinations,
-                        'filters'         => $this->filters,
-                        'pax'             => $this->pax,
-                        'service'         => $this->service,
+                        'customFields' => $this->customFields,
+                        'dates' => $this->dates,
+                        'destinations' => $this->destinations,
+                        'filters' => $this->filters,
+                        'pax' => $this->pax,
+                        'service' => $this->service,
                     ],
                 ],
             ],

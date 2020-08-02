@@ -112,7 +112,7 @@ class Search extends Innstant
     /**
      * Set the destinations.
      *
-     * @param int    $id
+     * @param int $id
      * @param string $type
      *
      * @return $this
@@ -120,7 +120,7 @@ class Search extends Innstant
     public function setDestination(int $id, string $type = 'location')
     {
         $this->destinations[] = [
-            'id'   => $id,
+            'id' => $id,
             'type' => $type,
         ];
 
@@ -139,7 +139,7 @@ class Search extends Innstant
     {
         $this->dates = [
             'from' => $from,
-            'to'   => $to,
+            'to' => $to,
         ];
 
         return $this;
@@ -149,14 +149,14 @@ class Search extends Innstant
      * Set the filters.
      *
      * @param string $name
-     * @param bool   $value
+     * @param bool $value
      *
      * @return $this
      */
     public function setFilter(string $name, bool $value = true)
     {
         $this->filters[] = [
-            'name'  => $name,
+            'name' => $name,
             'value' => $value,
         ];
 
@@ -166,7 +166,7 @@ class Search extends Innstant
     /**
      * Set the pax.
      *
-     * @param int   $adults
+     * @param int $adults
      * @param array $children
      *
      * @return $this
@@ -174,7 +174,7 @@ class Search extends Innstant
     public function setPax(int $adults, array $children)
     {
         $this->pax[] = [
-            'adults'   => $adults,
+            'adults' => $adults,
             'children' => $children,
         ];
 
@@ -198,7 +198,7 @@ class Search extends Innstant
     /**
      * Set the timeout.
      *
-     * @param int   $timeout
+     * @param int $timeout
      *
      * @return $this
      */
@@ -218,18 +218,18 @@ class Search extends Innstant
     {
         return [
             'client' => [
-                'ip'        => self::$clientIp ?? null,
+                'ip' => self::$clientIp ?? null,
                 'userAgent' => self::$clientUserAgent ?? null,
             ],
-            'currencies'      => $this->currencies,
+            'currencies' => $this->currencies,
             'customerCountry' => $this->customerCountry,
-            'customFields'    => $this->customFields,
-            'dates'           => $this->dates,
-            'destinations'    => $this->destinations,
-            'filters'         => $this->filters,
-            'pax'             => $this->pax,
-            'timeout'         => $this->timeout,
-            'service'         => $this->service,
+            'customFields' => $this->customFields,
+            'dates' => $this->dates,
+            'destinations' => $this->destinations,
+            'filters' => $this->filters,
+            'pax' => $this->pax,
+            'timeout' => $this->timeout,
+            'service' => $this->service,
         ];
     }
 }

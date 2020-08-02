@@ -55,9 +55,9 @@ class Book extends Search
      * Set the credit card.
      *
      * @param string $number
-     * @param int    $cvc
-     * @param int    $expiryMonth
-     * @param int    $expiryYear
+     * @param int $cvc
+     * @param int $expiryMonth
+     * @param int $expiryYear
      * @param string $firstName
      * @param string $lastName
      *
@@ -67,14 +67,14 @@ class Book extends Search
     {
         $this->creditCard = [
             'cardNumber' => $number,
-            'cvc'        => $cvc,
-            'expiry'     => [
+            'cvc' => $cvc,
+            'expiry' => [
                 'month' => $expiryMonth,
-                'year'  => $expiryYear,
+                'year' => $expiryYear,
             ],
-            'name'       => [
+            'name' => [
                 'first' => $firstName,
-                'last'  => $lastName,
+                'last' => $lastName,
             ],
         ];
 
@@ -84,7 +84,7 @@ class Book extends Search
     /**
      * Set the customer.
      *
-     * @param array  $contact
+     * @param array $contact
      * @param string $birthDate
      * @param string $firstName
      * @param string $lastName
@@ -96,12 +96,12 @@ class Book extends Search
     {
         $this->customer = [
             'birthDate' => $birthDate,
-            'contact'   => $contact,
-            'name'      => [
+            'contact' => $contact,
+            'name' => [
                 'first' => $firstName,
-                'last'  => $lastName,
+                'last' => $lastName,
             ],
-            'title'     => $title,
+            'title' => $title,
         ];
 
         return $this;
@@ -120,7 +120,7 @@ class Book extends Search
         switch ($name) {
             case 'credit_card':
                 $this->paymentMethod = [
-                    'methodName'       => 'credit_card',
+                    'methodName' => 'credit_card',
                     'securePaymentUrl' => $url,
                 ];
                 break;
@@ -146,7 +146,7 @@ class Book extends Search
     public function setReference(string $agency, string $email)
     {
         $this->reference = [
-            'agency'       => $agency,
+            'agency' => $agency,
             'voucherEmail' => $email,
         ];
 
@@ -158,15 +158,15 @@ class Book extends Search
      *
      * @param string $code
      * @param string $token
-     * @param array  $pax
+     * @param array $pax
      *
      * @return $this
      */
     public function setBookingRequest(string $code, string $token, array $pax)
     {
         $this->bookingRequest[] = [
-            'code'  => $code,
-            'pax'   => $pax,
+            'code' => $code,
+            'pax' => $pax,
             'token' => $token,
         ];
 
@@ -181,26 +181,26 @@ class Book extends Search
     public function toArray()
     {
         return [
-            'creditCard'    => $this->creditCard,
-            'customer'      => $this->customer,
+            'creditCard' => $this->creditCard,
+            'customer' => $this->customer,
             'paymentMethod' => $this->paymentMethod,
-            'reference'     => $this->reference,
-            'services'      => [
+            'reference' => $this->reference,
+            'services' => [
                 [
                     'bookingRequest' => $this->bookingRequest,
-                    'searchRequest'  => [
-                        'client'          => [
-                            'ip'        => self::$clientIp ?? null,
+                    'searchRequest' => [
+                        'client' => [
+                            'ip' => self::$clientIp ?? null,
                             'userAgent' => self::$clientUserAgent ?? null,
                         ],
-                        'currencies'      => $this->currencies,
+                        'currencies' => $this->currencies,
                         'customerCountry' => $this->customerCountry,
-                        'customFields'    => $this->customFields,
-                        'dates'           => $this->dates,
-                        'destinations'    => $this->destinations,
-                        'filters'         => $this->filters,
-                        'pax'             => $this->pax,
-                        'service'         => $this->service,
+                        'customFields' => $this->customFields,
+                        'dates' => $this->dates,
+                        'destinations' => $this->destinations,
+                        'filters' => $this->filters,
+                        'pax' => $this->pax,
+                        'service' => $this->service,
                     ],
                 ],
             ],

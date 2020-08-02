@@ -94,10 +94,10 @@ class Cancel extends Innstant
     public function toArray()
     {
         return [
-            'BookingID'    => (int) $this->bookingID,
+            'BookingID' => (int) $this->bookingID,
             'CancelReason' => $this->cancelReason,
-            'Force'        => $this->force,
-            'IsManual'     => $this->isManual,
+            'Force' => $this->force,
+            'IsManual' => $this->isManual,
         ];
     }
 }

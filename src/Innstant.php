@@ -128,17 +128,17 @@ class Innstant
         self::$clientUserAgent = $clientUserAgent;
     }
 
+    public function get()
+    {
+        return $this->request($this->toArray());
+    }
+
     /**
      * Get the url to be used for requests.
      */
     public function getUrl()
     {
         return self::$apiBase.$this->endpoint;
-    }
-
-    public function get()
-    {
-        return $this->request($this->toArray());
     }
 
     public function request($body, $method = 'POST')

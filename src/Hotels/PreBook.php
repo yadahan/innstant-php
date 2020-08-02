@@ -31,11 +31,11 @@ class PreBook extends Search
      *
      * @return $this
      */
-    public function setCode(string $code, int $quantity = 1)
+    public function setCode(string $code, array $pax)
     {
         $this->searchCodes[] = [
             'code'     => $code,
-            'quantity' => $quantity,
+            'pax' => $pax,
         ];
 
         return $this;

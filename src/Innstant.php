@@ -128,6 +128,14 @@ class Innstant
         self::$clientUserAgent = $clientUserAgent;
     }
 
+    /**
+     * Get the url to be used for requests.
+     */
+    public function getUrl()
+    {
+        return self::$apiBase.$this->endpoint;
+    }
+
     public function get()
     {
         return $this->request($this->toArray());
@@ -138,7 +146,7 @@ class Innstant
         $client = new Client();
 
         try {
-            $response = $client->request($method, self::$apiBase.$this->endpoint, [
+            $response = $client->request($method, $this->getUrl(), [
                 'headers' => [
                     'aether-application-key' => self::$applicationKey,
                     'aether-access-token' => self::$accessToken,

@@ -16,7 +16,7 @@ class Book extends Search
      *
      * @var array
      */
-    protected $creditCard = [];
+    protected $creditCard = null;
 
     /**
      * The customer.
@@ -180,7 +180,7 @@ class Book extends Search
      */
     public function toArray()
     {
-        return [
+        return array_filter([
             'creditCard' => $this->creditCard,
             'customer' => $this->customer,
             'paymentMethod' => $this->paymentMethod,
@@ -204,6 +204,8 @@ class Book extends Search
                     ],
                 ],
             ],
-        ];
+        ], function($value) {
+            return !is_null($value);
+        });
     }
 }

@@ -204,8 +204,8 @@ class Book extends Search
                     ],
                 ],
             ],
-        ], function($value) {
-            return !is_null($value);
+        ], function ($value) {
+            return ! is_null($value);
         });
     }
 }
